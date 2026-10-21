@@ -589,7 +589,7 @@ def pag_alertas():
         f = d.iloc[0]; brecha = f.r1p_bl - f.prod_total_bl
         tasa = float(ley756(f.r1p_bl / (366 if anio == 2024 else 365)))
         ejemplo(f"En {anio}, <b>{f.campo}</b> ({f.operadora}) tiene una Reserva 1P de {num(f.r1p_bl)} bl, pero el modelo pronostica {num(f.prod_total_bl)} bl: "
-                f"cumplimiento <b>{f.cumplimiento:.2f}</b> &lt; {U:.2f} → <b>alerta</b>. Si las regalías se presupuestan con la 1P, se esperarían "
+                f"cumplimiento <b>{num(f.cumplimiento, 2)}</b> &lt; {num(U, 2)} → <b>alerta</b>. Si las regalías se presupuestan con la 1P, se esperarían "
                 f"{num(brecha)} bl de producción que probablemente no llegarán, unos {num(brecha * tasa)} bl de regalías (tasa {pct(tasa)}). "
                 "Acción sugerida: revisar con el operador el plan de desarrollo del campo antes de cerrar el presupuesto.")
     pie()

@@ -15,6 +15,8 @@ Integrantes: Rafael Fajardo Moreno, Sonia Catalina Martinez Herrera y Laura Marc
 
 Repositorio: https://github.com/rafafajardo-ux/TRABAJO-FINAL
 
+**Aplicativo en línea:** https://rafafajardo-ux.github.io/TRABAJO-FINAL/ (la primera carga tarda unos 30 segundos; pide aceptar los términos y la contraseña).
+
 ## Uso
 
 ```bash
