@@ -1,0 +1,46 @@
+# Paleta de www.rafaelfajardomoreno.com · fuente Arial Narrow (con equivalente libre "PFI Narrow" si Arial Narrow no está instalada)
+[server]
+enableStaticServing = true
+
+[theme]
+base = "light"
+primaryColor = "#C8973A"
+backgroundColor = "#F7F5F0"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#1C1C1E"
+linkColor = "#1F3251"
+borderColor = "#E2DDD6"
+font = "'Arial Narrow', 'PFI Narrow', sans-serif"
+headingFont = "'Arial Narrow', 'PFI Narrow', sans-serif"
+codeFont = "'Arial Narrow', 'PFI Narrow', monospace"
+baseRadius = "small"
+
+[[theme.fontFaces]]
+family = "PFI Narrow"
+url = "app/static/PFINarrow-Regular.ttf"
+weight = 400
+style = "normal"
+
+[[theme.fontFaces]]
+family = "PFI Narrow"
+url = "app/static/PFINarrow-Bold.ttf"
+weight = 700
+style = "normal"
+
+[[theme.fontFaces]]
+family = "PFI Narrow"
+url = "app/static/PFINarrow-Italic.ttf"
+weight = 400
+style = "italic"
+
+[theme.sidebar]
+backgroundColor = "#0F1923"
+secondaryBackgroundColor = "#1F3251"
+textColor = "#F7F5F0"
+borderColor = "#1F3251"
+
+[browser]
+gatherUsageStats = false
+
+[client]
+toolbarMode = "viewer"
