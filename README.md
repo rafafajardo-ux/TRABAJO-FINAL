@@ -13,6 +13,8 @@ Integrantes: Rafael Fajardo Moreno, Sonia Catalina Martinez Herrera y Laura Marc
 | `informe_PFI`, `resumen_ejecutivo_EN`, `guia_PFI` | Documentos en Word y PDF. |
 | `datos_crudos/` | Excel original y precios mensuales EIA. |
 
+Repositorio: https://github.com/rafafajardo-ux/TRABAJO-FINAL
+
 ## Uso
 
 ```bash
