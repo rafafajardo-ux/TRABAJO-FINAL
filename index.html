@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>PFI · Reservas 1P y regalías</title>
+<meta name="description" content="Aplicativo académico del PFI (Especialización en Machine Learning, Universidad EAN 2026): producción de las Reservas 1P de Colombia y regalías esperadas con WTI o Brent.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.0/build/stlite.css">
+<style>
+  @font-face { font-family: 'PFI Narrow'; src: url('app/static/PFINarrow-Regular.ttf') format('truetype'); font-weight: 400; }
+  @font-face { font-family: 'PFI Narrow'; src: url('app/static/PFINarrow-Bold.ttf') format('truetype'); font-weight: 700; }
+  html, body { margin: 0; background: #F7F5F0; font-family: 'Arial Narrow', 'PFI Narrow', sans-serif; }
+  #carga { max-width: 640px; margin: 18vh auto 0; padding: 0 16px; color: #1F3251; text-align: center; }
+  #carga h1 { font-size: 2rem; margin: 0 0 .5rem; border-bottom: 2px solid #C8973A; padding-bottom: .4rem; }
+  #carga p { color: #6B7785; font-size: 1.05rem; }
+</style>
+</head>
+<body>
+<div id="root">
+  <div id="carga">
+    <h1>Reservas 1P y regalías de petróleo en Colombia</h1>
+    <p>Cargando el aplicativo en su navegador (la primera vez tarda entre 30 y 60 segundos)…</p>
+    <p>Uso exclusivamente académico · Especialización en Machine Learning, Universidad EAN (2026)</p>
+  </div>
+</div>
+<script type="module">
+import { mount } from "https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.0/build/stlite.js";
+mount({
+  requirements: ["plotly", "openpyxl"],
+  entrypoint: "app/app.py",
+  files: {
+  "app/app.py": {
+    "url": "./app/app.py"
+  },
+  "ficha_datos.md": {
+    "url": "./ficha_datos.md"
+  },
+  "artefactos/figuras/arbol_decision.png": {
+    "url": "./artefactos/figuras/arbol_decision.png"
+  },
+  "artefactos/arbol_reglas.txt": {
+    "url": "./artefactos/arbol_reglas.txt"
+  },
+  "artefactos/calidad_faltantes.csv": {
+    "url": "./artefactos/calidad_faltantes.csv"
+  },
+  "artefactos/calidad_hallazgos.csv": {
+    "url": "./artefactos/calidad_hallazgos.csv"
+  },
+  "artefactos/coeficientes_numericos.csv": {
+    "url": "./artefactos/coeficientes_numericos.csv"
+  },
+  "artefactos/coeficientes_regresion_lineal.csv": {
+    "url": "./artefactos/coeficientes_regresion_lineal.csv"
+  },
+  "artefactos/comparacion_modelos.csv": {
+    "url": "./artefactos/comparacion_modelos.csv"
+  },
+  "artefactos/componentes_pca.csv": {
+    "url": "./artefactos/componentes_pca.csv"
+  },
+  "artefactos/curva_aprendizaje_red.csv": {
+    "url": "./artefactos/curva_aprendizaje_red.csv"
+  },
+  "artefactos/error_por_tamano.csv": {
+    "url": "./artefactos/error_por_tamano.csv"
+  },
+  "artefactos/hechos_campo_anio.csv": {
+    "url": "./artefactos/hechos_campo_anio.csv"
+  },
+  "artefactos/importancia_variables.csv": {
+    "url": "./artefactos/importancia_variables.csv"
+  },
+  "artefactos/metadatos.json": {
+    "url": "./artefactos/metadatos.json"
+  },
+  "artefactos/perfil_segmentos.csv": {
+    "url": "./artefactos/perfil_segmentos.csv"
+  },
+  "artefactos/precios_anuales.csv": {
+    "url": "./artefactos/precios_anuales.csv"
+  },
+  "artefactos/prueba_predicciones.csv": {
+    "url": "./artefactos/prueba_predicciones.csv"
+  },
+  "artefactos/resumen_nacional.csv": {
+    "url": "./artefactos/resumen_nacional.csv"
+  },
+  "artefactos/segmentos_campos.csv": {
+    "url": "./artefactos/segmentos_campos.csv"
+  },
+  "artefactos/silueta.csv": {
+    "url": "./artefactos/silueta.csv"
+  },
+  "artefactos/umbral_alerta.csv": {
+    "url": "./artefactos/umbral_alerta.csv"
+  },
+  "artefactos/umbral_costos.csv": {
+    "url": "./artefactos/umbral_costos.csv"
+  }
+},
+  streamlitConfig: {"theme.base": "light", "theme.primaryColor": "#C8973A", "theme.backgroundColor": "#F7F5F0", "theme.secondaryBackgroundColor": "#FFFFFF", "theme.textColor": "#1C1C1E", "theme.linkColor": "#1F3251", "theme.borderColor": "#E2DDD6", "theme.font": "'Arial Narrow', 'PFI Narrow', sans-serif", "theme.headingFont": "'Arial Narrow', 'PFI Narrow', sans-serif", "theme.baseRadius": "small", "theme.sidebar.backgroundColor": "#0F1923", "theme.sidebar.secondaryBackgroundColor": "#1F3251", "theme.sidebar.textColor": "#F7F5F0", "theme.sidebar.borderColor": "#1F3251", "client.toolbarMode": "viewer"}
+}, document.getElementById("root"));
+</script>
+</body>
+</html>

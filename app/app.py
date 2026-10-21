@@ -74,9 +74,28 @@ _HUELLA = "5f53acbf63731248a756bec34a2df8749293059a987f3962a6dbec1ec98e521d"
 _ITER = 300_000
 
 
+def _pbkdf2_sha256(clave, sal, iteraciones):
+    """PBKDF2-HMAC-SHA256 (32 bytes) en Python puro: respaldo para navegadores (Pyodide) sin OpenSSL."""
+    k = clave if len(clave) <= 64 else hashlib.sha256(clave).digest()
+    k = k.ljust(64, b"\0")
+    interno, externo = hashlib.sha256(bytes(b ^ 0x36 for b in k)), hashlib.sha256(bytes(b ^ 0x5C for b in k))
+
+    def prf(m):
+        i = interno.copy(); i.update(m)
+        o = externo.copy(); o.update(i.digest())
+        return o.digest()
+    u = prf(sal + b"\x00\x00\x00\x01"); acum = int.from_bytes(u, "big")
+    for _ in range(iteraciones - 1):
+        u = prf(u); acum ^= int.from_bytes(u, "big")
+    return acum.to_bytes(32, "big")
+
+
 def clave_valida(texto):
-    calc = hashlib.pbkdf2_hmac("sha256", texto.encode("utf-8"), _SAL, _ITER).hex()
-    return hmac.compare_digest(calc, _HUELLA)
+    try:
+        calc = hashlib.pbkdf2_hmac("sha256", texto.encode("utf-8"), _SAL, _ITER)
+    except (AttributeError, ValueError):
+        calc = _pbkdf2_sha256(texto.encode("utf-8"), _SAL, _ITER)
+    return hmac.compare_digest(calc.hex(), _HUELLA)
 
 
 def encabezado(titulo):
