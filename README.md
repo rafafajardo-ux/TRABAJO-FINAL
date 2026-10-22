@@ -11,6 +11,8 @@ Integrantes: Rafael Fajardo Moreno, Sonia Catalina Martinez Herrera y Laura Marc
 | `app/app.py` | Aplicativo Streamlit (consulta por año, desagregación, WTI/Brent, regalías). |
 | `iniciar_app.command` | Doble clic en macOS: prepara el entorno y abre http://localhost:8501. |
 | `informe_PFI`, `resumen_ejecutivo_EN`, `guia_PFI` | Documentos en Word y PDF. |
+| `anexo_A_enfoque.md` | Anexo A: enfoque del aplicativo (producción y regalías solo con desarrollo de Reservas 1P, WTI y Brent). |
+| `anexo_B_datos_reales.md` | Anexo B: datos reales del IRR 2024, anonimización y medidas de acceso. |
 | `declaracion_IA.md` | Declaración de uso de inteligencia artificial (Claude Opus 5.5, Anthropic). |
 | `datos_crudos/` | Excel original y precios mensuales EIA. |
 
