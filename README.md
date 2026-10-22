@@ -11,6 +11,7 @@ Integrantes: Rafael Fajardo Moreno, Sonia Catalina Martinez Herrera y Laura Marc
 | `app/app.py` | Aplicativo Streamlit (consulta por año, desagregación, WTI/Brent, regalías). |
 | `iniciar_app.command` | Doble clic en macOS: prepara el entorno y abre http://localhost:8501. |
 | `informe_PFI`, `resumen_ejecutivo_EN`, `guia_PFI` | Documentos en Word y PDF. |
+| `declaracion_IA.md` | Declaración de uso de inteligencia artificial (Claude Opus 5.5, Anthropic). |
 | `datos_crudos/` | Excel original y precios mensuales EIA. |
 
 Repositorio: https://github.com/rafafajardo-ux/TRABAJO-FINAL
