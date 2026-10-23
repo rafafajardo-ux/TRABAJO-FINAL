@@ -93,15 +93,26 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding-top:14px;font-si
 <style>
 .solo{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 60px}
 .solo h3{font-size:1.3rem;margin-top:2rem}
-@media print{details,.qcp,tr{break-inside:avoid} h3,h2{break-after:avoid} .tbl{overflow:visible} body{background:#FFFFFF}}
+@media print{details,.qcp,tr{break-inside:avoid} .split + .tbl tr{break-inside:auto} h3,h2{break-after:avoid} .tbl{overflow:visible} body{background:#FFFFFF}}
+.cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:12px 0 8px}
+.concept{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:6px;padding:14px 16px;min-width:0}
+.concept .formula{white-space:normal}
+.concept h4{margin:0 0 6px;font-size:1.08rem;color:var(--head)}
+.concept p{margin:.3rem 0;font-size:.97rem}
+.concept ol{margin:.3rem 0 0 1.1rem;padding:0;font-size:.97rem}
+.concept .lee{color:var(--muted);font-size:.9rem;border-top:1px dashed var(--line);padding-top:.35rem;margin-top:.5rem}
+.gloss > div{break-inside:avoid}
+#conceptos{margin-top:48px}
+@media (max-width:760px){.cgrid{grid-template-columns:minmax(0,1fr)}}
+@media print{#conceptos{break-before:page;border-top:0;margin-top:0;padding-top:0}.concept,.gloss>div{break-inside:avoid}h4{break-after:avoid}}
 </style>
-</head><body><div class="solo">
+<div class="solo">
   <div class="eyebrow">Proyecto Final Integrador · Especialización en Machine Learning · Universidad EAN</div>
   <h1>Guía de sustentación</h1>
   <p class="lead">Producción anual y diaria de las Reservas 1P de Colombia y regalías esperadas según WTI y Brent.</p>
   <p class="measure" style="color:var(--muted)">Integrantes: Rafael Fajardo Moreno, Sonia Catalina Martinez Herrera y Laura Marcela Garnica Tapia · Octubre de 2026</p>
   <div class="terms"><b>Uso académico.</b> Datos de carácter reservado (IRR 2024), con nombres de campos y contratos anonimizados. Aplicativo: https://rafafajardo-ux.github.io/TRABAJO-FINAL/ (con términos y contraseña) · Repositorio: https://github.com/rafafajardo-ux/TRABAJO-FINAL</div>
-<p class="measure">Guía para preparar la exposición ante el jurado. Sigue la estructura recomendada en cuatro momentos y la llena con las cifras del proyecto, siempre con su incertidumbre y con la línea base al lado.</p>
+<p class="measure">Guía para preparar la exposición ante el jurado. Sigue la estructura recomendada en cuatro momentos y la llena con las cifras del proyecto, siempre con su incertidumbre y con la línea base al lado. Al final, el apartado <a href="#conceptos">Conceptos clave</a> explica cada métrica, los pliegues y los demás conceptos que el jurado puede preguntar.</p>
 
 <h3 id="sus-reglas">Cuatro reglas para la presentación</h3>
 <div class="qcp qcp4">
@@ -111,9 +122,8 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding-top:14px;font-si
   <div><h4>Declarar los límites</h4>Decir lo que el proyecto no demuestra. Declarar un límite puntúa; esconderlo se nota.</div>
 </div>
 
-<h3 id="sus-estructura">Estructura recomendada de la exposición</h3>
-<div class="tbl"><table>
-  <tr><th style="width:18%">Momento</th><th style="width:30%">Qué contiene</th><th>Qué decimos en este proyecto</th></tr>
+<h3 id="sus-estructura" class="split">Estructura recomendada de la exposición</h3>
+<div class="tbl"><table><thead><tr><th style="width:18%">Momento</th><th style="width:30%">Qué contiene</th><th>Qué decimos en este proyecto</th></tr></thead><tbody>
   <tr><td><b>1. Problema y decisión</b></td><td>Qué se decide, quién decide, cuál es el resultado clave y cuánta incertidumbre trae.</td>
     <td><b>Decisión:</b> cuántos barriles y cuántas regalías presupuestar por año en el Sistema General de Regalías, y qué campos revisar antes. <b>Deciden:</b> Ministerio de Minas y Energía, ANH y DNP; afecta a departamentos y municipios productores. <b>Resultado clave:</b> 724 mil bpd en 2026 y regalías por USD 2.368 millones a WTI o 2.599 a Brent; 535 mil bpd en 2027. <b>Incertidumbre:</b> error mediano de ±15 % por campo, WAPE de 9,6 % ± 2,0 en validación cruzada y sesgo del total país de −3,1 % en la prueba; la elección WTI o Brent mueve las regalías cerca de 10 %.</td></tr>
   <tr><td><b>2. Datos y diseño</b></td><td>Procedencia, calidad, sesgo y cómo se evitó la fuga.</td>
@@ -122,12 +132,11 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding-top:14px;font-si
     <td><b>Líneas base:</b> Reserva 1P tal cual (25,4 % de error en la prueba) y persistencia (8,1 %). <b>Modelos:</b> árbol de decisión, Random Forest, Gradient Boosting, regresión lineal (MCO y Ridge) y red neuronal; gana Random Forest con 9,6 % en validación cruzada y 8,4 % en la prueba. <b>Métrica:</b> WAPE, porque el error cuesta en barriles, y sesgo del total país, porque un sesgo positivo promete regalías que no llegan. <b>Umbral:</b> alerta si el pronóstico no alcanza la 1P (1,00), elegido con costo 3:1; detecta el 94 % de los incumplimientos con 69 % de precisión.</td></tr>
   <tr><td><b>4. Recomendación, límites y riesgos</b></td><td>Qué se recomienda, qué la invalidaría y a quién podría perjudicar.</td>
     <td><b>Recomendación:</b> usar el modelo para planear 12 a 24 meses, con la 1P como tope, y revisar con los operadores los campos en alerta antes de presupuestar. <b>Qué la invalidaría:</b> choques operativos o de orden público, una nueva 1P (IRR más reciente), unificaciones de campos o un sesgo del total país mayor a ±5 % en el seguimiento. <b>A quién podría perjudicar:</b> a municipios productores pequeños si el pronóstico sobreestima (sus campos tienen 22 % de error) y a los municipios de los 70 campos sin 1P, que quedan subestimados.</td></tr>
-</table></div>
+</tbody></table></div>
 
 <h3 id="sus-diapositivas">Guion propuesto: 10 diapositivas</h3>
 <p class="measure">Los títulos están escritos como frases: leídos en orden, cuentan el argumento completo.</p>
-<div class="tbl"><table>
-  <tr><th class="n">#</th><th>Título de la diapositiva</th><th>Momento</th><th>Qué mostrar</th></tr>
+<div class="tbl"><table><thead><tr><th class="n">#</th><th>Título de la diapositiva</th><th>Momento</th><th>Qué mostrar</th></tr></thead><tbody>
   <tr><td class="n">1</td><td>Para presupuestar regalías se necesita un pronóstico por campo mejor que la Reserva 1P</td><td>Problema y decisión</td><td>La decisión, quién decide y a quién afecta</td></tr>
   <tr><td class="n">2</td><td>En 2026 se esperan 724 mil bpd y USD 2.368 a 2.599 millones de regalías, con ±15 % de error por campo</td><td>Problema y decisión</td><td>Resultado clave con su incertidumbre y el rango WTI–Brent</td></tr>
   <tr><td class="n">3</td><td>Los datos son reales (IRR 2024 y producción 2023-2026), anonimizados y con calidad verificada</td><td>Datos y diseño</td><td>Procedencia, diagnóstico de calidad y anonimización</td></tr>
@@ -138,7 +147,7 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding-top:14px;font-si
   <tr><td class="n">8</td><td>Un umbral de 1,00 detecta el 94 % de los incumplimientos de la 1P</td><td>Modelos y evaluación</td><td>Costo 3:1, sensibilidad, precisión y un ejemplo de campo en alerta</td></tr>
   <tr><td class="n">9</td><td>Recomendamos planear a 12-24 meses con el modelo y usar la 1P solo como tope</td><td>Recomendación</td><td>Recomendación y gobernanza: reentrenar cada año, revisar si el sesgo pasa de ±5 %</td></tr>
   <tr><td class="n">10</td><td>Lo que el proyecto no demuestra y a quién podría perjudicar</td><td>Límites y riesgos</td><td>Límites declarados y riesgos por territorio</td></tr>
-</table></div>
+</tbody></table></div>
 <p class="measure"><b>Anexos sugeridos:</b> A. Curva de aprendizaje de la red neuronal · B. Árbol de decisión · C. Segmentos de campos · D. Aplicativo (términos, contraseña, consulta) · E. Escala de regalías de la Ley 756 · F. Trazabilidad CRISP-DM · G. Declaración de uso de IA.</p>
 
 <h3 id="sus-jurado">Qué se espera ver en la sustentación</h3>
@@ -149,15 +158,14 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding-top:14px;font-si
 </div>
 
 <h3 id="sus-trazabilidad">Trazabilidad CRISP-DM</h3>
-<div class="tbl"><table>
-  <tr><th>Fase</th><th>Evidencia</th><th>Dónde está</th></tr>
+<div class="tbl"><table><thead><tr><th>Fase</th><th>Evidencia</th><th>Dónde está</th></tr></thead><tbody>
   <tr><td>Comprensión del negocio</td><td>Decisión, métricas de éxito, alcance IRR 2024</td><td>Informe §1 · cuaderno §1 · anexo A</td></tr>
   <tr><td>Comprensión de los datos</td><td>Ficha de datos, diagnóstico de calidad, anonimización</td><td>ficha_datos.md · cuaderno §2 · anexo B</td></tr>
   <tr><td>Preparación</td><td>Conjunto campo-año, variables ex ante, barreras contra la fuga</td><td>Informe §3 · cuaderno §3</td></tr>
   <tr><td>Modelado</td><td>Seis modelos y tres líneas base con validación cruzada agrupada</td><td>Informe §4 · cuaderno §4 · comparacion_modelos.csv</td></tr>
   <tr><td>Evaluación</td><td>Prueba 2026, error por tamaño, umbral, segmentos</td><td>Informe §5 · cuaderno §5 · página Modelos</td></tr>
   <tr><td>Despliegue</td><td>Aplicativo en línea con términos y contraseña, documentos, repositorio</td><td>GitHub · aplicativo · guía §11</td></tr>
-</table></div>
+</tbody></table></div>
 
 <h3 id="sus-limites">Lo que el proyecto no demuestra</h3>
 <ul class="measure">
@@ -176,6 +184,191 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding-top:14px;font-si
 <details><summary>¿A quién podría perjudicar el modelo?</summary><p>A los municipios productores pequeños si el pronóstico sobreestima, porque sus campos tienen más error (22 % en los de menos de 1.000 bpd), y a los municipios de los 70 campos sin 1P, que quedan fuera del pronóstico después de 2026.</p></details>
 <details><summary>¿Cómo protegieron los datos reservados?</summary><p>Los nombres de campos y contratos están anonimizados, la tabla de correspondencia no se publica, el aplicativo exige aceptar los términos y una contraseña única que se solicita por correo, y hay una declaración de uso de IA.</p></details>
 
+
+<section id="conceptos">
+  <div class="eyebrow">Conceptos clave</div>
+  <h2>Qué significa cada métrica y por qué se usa</h2>
+  <p class="measure">Este apartado complementa la guía de sustentación: explica, sin salir del documento, cada métrica, cada partición de los datos y cada concepto que aparece en el proyecto. Para cada métrica se indica qué mide, cómo se calcula, un ejemplo con las cifras del proyecto, por qué se usa aquí y cómo leerla.</p>
+
+  <h3 id="c-pronostico">A. Métricas del pronóstico de producción</h3>
+  <div class="cgrid">
+    <div class="concept" id="c-wape"><h4>WAPE · error absoluto ponderado</h4>
+      <p><b>Qué mide.</b> Cuántos barriles se equivoca el pronóstico por cada 100 barriles producidos, sumando todos los campos.</p>
+      <p><b>Cómo se calcula.</b> <span class="formula">Σ |pronóstico − real| / Σ real</span>. Se suman los errores absolutos de todos los campos y se dividen por la producción real total.</p>
+      <p><b>Ejemplo.</b> En la prueba 2026 el Random Forest tuvo 8,4 %: por cada 100 barriles reales, los errores de los campos suman unos 8. Con la Reserva 1P tal cual serían 25.</p>
+      <p><b>Por qué se usa.</b> Es la métrica principal porque el costo del error está en barriles: un error de 1.000 bpd pesa lo mismo en un campo grande que en uno pequeño, y eso es lo que llega o deja de llegar a cada municipio.</p>
+      <p class="lee">Menos es mejor. 0 % sería un pronóstico perfecto.</p></div>
+    <div class="concept" id="c-sesgo"><h4>Sesgo del total país</h4>
+      <p><b>Qué mide.</b> Si el pronóstico, sumado para todo el país, queda por encima o por debajo de lo real.</p>
+      <p><b>Cómo se calcula.</b> <span class="formula">Σ pronóstico / Σ real − 1</span>.</p>
+      <p><b>Ejemplo.</b> −3,1 % en la prueba 2026: el modelo pronosticó para el país un 3,1 % menos de lo que se produjo. Es una subestimación leve.</p>
+      <p><b>Por qué se usa.</b> El presupuesto de regalías depende del total. Un sesgo positivo promete regalías que no llegan; uno negativo deja recursos sin programar. La meta fue un sesgo menor a ±5 %.</p>
+      <p class="lee">Cerca de 0 es mejor. A diferencia del WAPE, los errores de signo contrario se compensan.</p></div>
+    <div class="concept" id="c-mae"><h4>MAE · error absoluto medio</h4>
+      <p><b>Qué mide.</b> El error promedio de un campo cualquiera, en barriles por día.</p>
+      <p><b>Cómo se calcula.</b> <span class="formula">promedio de |pronóstico − real|</span>.</p>
+      <p><b>Ejemplo.</b> 229 bpd con el Random Forest frente a 688 bpd con la 1P tal cual.</p>
+      <p><b>Por qué se usa.</b> Traduce el error a una cifra concreta por campo, fácil de explicar a un operador o a un municipio.</p>
+      <p class="lee">Menos es mejor. Está en la misma unidad que la producción.</p></div>
+    <div class="concept" id="c-rmse"><h4>RMSE · raíz del error cuadrático medio</h4>
+      <p><b>Qué mide.</b> Como el MAE, pero castiga mucho más los errores grandes, porque los eleva al cuadrado.</p>
+      <p><b>Cómo se calcula.</b> <span class="formula">√ promedio de (pronóstico − real)²</span>.</p>
+      <p><b>Ejemplo.</b> 608 bpd con el Random Forest frente a 1.667 bpd con la 1P. Que el RMSE sea mucho mayor que el MAE indica que hay pocos campos con errores grandes.</p>
+      <p><b>Por qué se usa.</b> Muestra si el modelo comete errores grandes ocasionales, que son los más costosos en campos grandes.</p>
+      <p class="lee">Menos es mejor. Siempre es mayor o igual que el MAE.</p></div>
+    <div class="concept" id="c-r2"><h4>R² en escala logarítmica</h4>
+      <p><b>Qué mide.</b> Qué proporción de las diferencias de producción entre campos explica el modelo, medida sobre el logaritmo de los barriles por día.</p>
+      <p><b>Cómo se calcula.</b> <span class="formula">1 − (suma de errores² / suma de desviaciones² respecto a la media)</span>, sobre log(1 + bpd).</p>
+      <p><b>Ejemplo.</b> 0,926 con el Random Forest frente a 0,706 con la 1P.</p>
+      <p><b>Por qué se usa.</b> Solo como referencia estadística. En escala logarítmica todos los campos pesan parecido, así que no refleja el costo en barriles; por eso no se usa para decidir.</p>
+      <p class="lee">Más es mejor; 1 sería perfecto.</p></div>
+    <div class="concept" id="c-pct20"><h4>Porcentaje de campos con error mayor a 20 %</h4>
+      <p><b>Qué mide.</b> Cuántos campos quedarían mal programados si se usara el pronóstico.</p>
+      <p><b>Cómo se calcula.</b> Número de campos con |pronóstico − real| / real &gt; 0,20, dividido por el total de campos.</p>
+      <p><b>Ejemplo.</b> 42 % con el Random Forest frente a 68 % con la 1P. Son sobre todo campos pequeños.</p>
+      <p><b>Por qué se usa.</b> Complementa el WAPE: muestra cuántos territorios tendrían un pronóstico poco fiable aunque pesen poco en barriles.</p>
+      <p class="lee">Menos es mejor.</p></div>
+    <div class="concept" id="c-desv"><h4>Desviación entre pliegues (±)</h4>
+      <p><b>Qué mide.</b> Cuánto cambia el error de un <a href="#c-pliegue">pliegue</a> a otro de la validación cruzada.</p>
+      <p><b>Cómo se calcula.</b> Desviación estándar de los cinco WAPE, uno por pliegue.</p>
+      <p><b>Ejemplo.</b> 9,6 % ± 2,0: según qué campos se dejen fuera, el error varía cerca de 2 puntos.</p>
+      <p><b>Por qué se usa.</b> Da la incertidumbre de la cifra. Por eso la diferencia de 0,3 puntos con la persistencia en la prueba 2026 no es concluyente.</p>
+      <p class="lee">Menos es mejor: indica un modelo estable.</p></div>
+    <div class="concept" id="c-mediano"><h4>Error mediano por campo (±15 %)</h4>
+      <p><b>Qué mide.</b> El error porcentual de un campo típico: la mitad de los campos tiene un error menor y la otra mitad, mayor.</p>
+      <p><b>Cómo se calcula.</b> Mediana de |pronóstico − real| / real en la validación 2025.</p>
+      <p><b>Ejemplo.</b> ±15 %: para un campo cualquiera, el pronóstico suele quedar dentro de un 15 % del valor real.</p>
+      <p><b>Por qué se usa.</b> Es la banda de incertidumbre que muestra el aplicativo al consultar un campo o un año futuro.</p>
+      <p class="lee">Menos es mejor. La mediana no se deja arrastrar por unos pocos campos con errores enormes.</p></div>
+    <div class="concept" id="c-mse"><h4>Error cuadrático medio ponderado (curva de aprendizaje)</h4>
+      <p><b>Qué mide.</b> El error de la red neuronal sobre el cambio logarítmico, en cada época del entrenamiento.</p>
+      <p><b>Cómo se calcula.</b> Promedio de (cambio real − cambio pronosticado)², ponderado por la raíz del tamaño del campo.</p>
+      <p><b>Ejemplo.</b> En la época 21 la validación llega a su mínimo (0,128); en la época 400 el entrenamiento baja a 0,006 y la prueba sube a 0,206.</p>
+      <p><b>Por qué se usa.</b> Es lo que la red minimiza al aprender, y compararlo entre entrenamiento y validación muestra el <a href="#c-sobreajuste">sobreajuste</a>.</p>
+      <p class="lee">Menos es mejor; importa la separación entre curvas.</p></div>
+  </div>
+
+  <h3 id="c-alerta">B. Métricas de la alerta de bajo cumplimiento</h3>
+  <p class="measure">La alerta es una clasificación: para cada campo se predice si va a <b>incumplir</b> (producir menos del 90 % de su Reserva 1P) y se compara con lo que pasó. Todas estas métricas salen de la <b>matriz de confusión</b>.</p>
+  <div class="tbl"><table style="max-width:760px"><thead><tr><th>Prueba 2026 (257 campos)</th><th class="n">Incumplió de verdad</th><th class="n">Cumplió de verdad</th></tr></thead><tbody>
+    <tr><td><b>Con alerta</b></td><td class="n">97 · verdaderos positivos (VP)</td><td class="n">43 · falsas alarmas (FP)</td></tr>
+    <tr><td><b>Sin alerta</b></td><td class="n">6 · incumplimientos no detectados (FN)</td><td class="n">111 · verdaderos negativos (VN)</td></tr>
+  </tbody></table></div>
+  <div class="cgrid">
+    <div class="concept" id="c-cumpl"><h4>Cumplimiento pronosticado</h4>
+      <p><b>Qué mide.</b> Qué fracción de su Reserva 1P se espera que produzca un campo.</p>
+      <p><b>Cómo se calcula.</b> <span class="formula">producción pronosticada / Reserva 1P del año</span>.</p>
+      <p><b>Ejemplo.</b> Campo_085 en 2027: 18,0 / 18,7 millones de barriles = 0,97.</p>
+      <p><b>Por qué se usa.</b> Es el puntaje con el que se decide la alerta: si es menor que el <a href="#c-umbral">umbral</a>, se alerta.</p></div>
+    <div class="concept" id="c-sens"><h4>Sensibilidad (o exhaustividad)</h4>
+      <p><b>Qué mide.</b> De los campos que de verdad incumplieron, cuántos detectó la alerta.</p>
+      <p><b>Cómo se calcula.</b> <span class="formula">VP / (VP + FN)</span> = 97 / 103 = 0,94.</p>
+      <p><b>Por qué se usa.</b> Es la métrica que más importa aquí: un incumplimiento no detectado significa presupuestar regalías que no van a llegar.</p>
+      <p class="lee">Más es mejor; 1 = no se escapa ningún incumplimiento.</p></div>
+    <div class="concept" id="c-prec"><h4>Precisión</h4>
+      <p><b>Qué mide.</b> De las alertas emitidas, cuántas fueron incumplimientos reales.</p>
+      <p><b>Cómo se calcula.</b> <span class="formula">VP / (VP + FP)</span> = 97 / 140 = 0,69.</p>
+      <p><b>Por qué se usa.</b> Mide el costo de revisar: 31 de cada 100 alertas son falsas alarmas, que solo cuestan una conversación con el operador.</p>
+      <p class="lee">Más es mejor. Suele bajar cuando la sensibilidad sube.</p></div>
+    <div class="concept" id="c-auc"><h4>AUC · área bajo la curva ROC</h4>
+      <p><b>Qué mide.</b> Qué tan bien ordena el puntaje a los campos, sin fijar todavía un umbral: la probabilidad de que un campo que incumple tenga peor puntaje que uno que cumple.</p>
+      <p><b>Cómo se calcula.</b> Se prueban todos los umbrales posibles y se mide el área bajo la curva de sensibilidad frente a tasa de falsas alarmas.</p>
+      <p><b>Ejemplo.</b> 0,93 en la prueba 2026.</p>
+      <p><b>Por qué se usa.</b> Separa dos preguntas: si el puntaje sirve (AUC) y dónde poner el corte (umbral).</p>
+      <p class="lee">0,5 = azar; 1 = separación perfecta.</p></div>
+    <div class="concept" id="c-umbral"><h4>Umbral y costo medio</h4>
+      <p><b>Qué es.</b> El valor de cumplimiento por debajo del cual se emite alerta. Se eligió 1,00: alertar todo campo cuyo pronóstico no alcance su 1P.</p>
+      <p><b>Cómo se eligió.</b> Se probaron umbrales de 0,70 a 1,20 en la validación 2025 y se escogió el de menor <span class="formula">costo = (3 × FN + 1 × FP) / campos</span>.</p>
+      <p><b>Ejemplo.</b> Costo medio en 2026: (3 × 6 + 43) / 257 = 0,237; con el umbral de 0,90 sería 0,257.</p>
+      <p><b>Por qué se usa.</b> No detectar un incumplimiento cuesta tres veces más que una falsa alarma. El umbral traduce ese costo del negocio en una regla.</p></div>
+  </div>
+
+  <h3 id="c-segmentos">C. Métricas de los segmentos</h3>
+  <div class="cgrid">
+    <div class="concept" id="c-silueta"><h4>Coeficiente de silueta</h4>
+      <p><b>Qué mide.</b> Qué tan bien separados están los grupos: si cada campo está más cerca de los de su segmento que de los del segmento vecino.</p>
+      <p><b>Cómo se calcula.</b> Para cada campo, <span class="formula">(b − a) / máx(a, b)</span>, donde a es la distancia media a su propio grupo y b la distancia media al grupo más cercano. Se promedia sobre todos los campos.</p>
+      <p><b>Ejemplo.</b> 0,33 con k = 5, el mejor valor entre k = 3 y k = 6.</p>
+      <p><b>Por qué se usa.</b> Para elegir cuántos segmentos formar sin mirar ninguna etiqueta.</p>
+      <p class="lee">De −1 a 1. Cerca de 0,3 indica grupos razonables con fronteras difusas, algo esperable en datos reales.</p></div>
+    <div class="concept" id="c-varianza"><h4>Varianza explicada por un componente</h4>
+      <p><b>Qué mide.</b> Qué parte de las diferencias entre campos resume cada <a href="#c-pca">componente principal</a>.</p>
+      <p><b>Ejemplo.</b> El componente 1 resume el 35 % y el componente 2, el 26 %: entre los dos, el 61 % de lo que distingue a los campos.</p>
+      <p><b>Por qué se usa.</b> Indica cuánto se pierde al dibujar seis variables en un plano de dos ejes.</p></div>
+  </div>
+
+  <h3 id="c-validacion">D. Validación: pliegues y particiones</h3>
+  <div class="cgrid">
+    <div class="concept" id="c-pliegue"><h4>Qué es un pliegue</h4>
+      <p>Un <b>pliegue</b> es una de las cinco partes en que se dividen los datos de 2024-2025 para validar. En cada ronda, un pliegue se aparta para medir el error y los otros cuatro se usan para entrenar. Se hacen cinco rondas, de modo que cada pliegue sirve una vez como validación.</p>
+      <p><b>En este proyecto.</b> Las 586 filas (campo × año) se reparten en cinco pliegues de unas 117 filas. El error final es el promedio de los cinco errores, con su <a href="#c-desv">desviación</a>.</p></div>
+    <div class="concept" id="c-gkf"><h4>Validación cruzada agrupada por campo</h4>
+      <p>Los pliegues no se forman al azar por fila, sino <b>por campo</b>: las filas 2024 y 2025 de un mismo campo van siempre juntas en el mismo pliegue.</p>
+      <p><b>Por qué.</b> Si un campo estuviera en entrenamiento (2024) y en validación (2025), el modelo lo «reconocería» y el error parecería menor de lo que será con campos que no ha visto. Agrupar por campo evita esa <a href="#c-fuga">fuga</a>.</p></div>
+    <div class="concept"><h4>Cómo funciona cada ronda</h4>
+      <ol>
+        <li>Ronda 1: entrena con los pliegues 2, 3, 4 y 5; mide el error en el pliegue 1.</li>
+        <li>Ronda 2: entrena con 1, 3, 4 y 5; mide en el 2.</li>
+        <li>Rondas 3, 4 y 5: igual, rotando el pliegue apartado.</li>
+        <li>Se promedian los cinco errores: 9,6 % ± 2,0 para el Random Forest.</li>
+        <li>Esto se repite para cada combinación de <a href="#c-hiper">hiperparámetros</a> de cada modelo.</li>
+      </ol></div>
+    <div class="concept" id="c-temporal"><h4>Validación temporal</h4>
+      <p>Se entrena solo con 2024 y se evalúa en 2025: se simula pronosticar un año que todavía no ha ocurrido.</p>
+      <p><b>Por qué.</b> Comprueba que el modelo funciona hacia adelante en el tiempo y no solo con campos nuevos. También se usó para elegir el <a href="#c-umbral">umbral</a>.</p></div>
+    <div class="concept" id="c-prueba"><h4>Conjunto de prueba (2026)</h4>
+      <p>La producción de enero a junio de 2026 se guardó sin tocar durante todo el desarrollo. Se usó <b>una sola vez</b>, al final, con el modelo ya elegido.</p>
+      <p><b>Por qué.</b> Si se usara para elegir el modelo o el umbral, la cifra quedaría optimista. Una prueba usada una sola vez es la cifra honesta.</p></div>
+    <div class="concept" id="c-fuga"><h4>Fuga de información</h4>
+      <p>Ocurre cuando el modelo usa, sin querer, información que no se conocería en el momento de pronosticar. Produce errores falsamente bajos que no se repiten en la realidad.</p>
+      <p><b>Cómo se evitó.</b> Solo variables conocidas antes del año, validación agrupada por campo, preparación dentro del <a href="#c-pipeline">pipeline</a> y prueba 2026 usada una vez.</p></div>
+    <div class="concept" id="c-pipeline"><h4>Pipeline</h4>
+      <p>La cadena de pasos que va de los datos al pronóstico: codificar categorías, escalar variables y aplicar el modelo. Se ajusta completa con los datos de entrenamiento de cada pliegue.</p>
+      <p><b>Por qué.</b> Si el escalado se calculara con todos los datos, el pliegue de validación «filtraría» información al entrenamiento.</p></div>
+    <div class="concept" id="c-hiper"><h4>Hiperparámetros y búsqueda en malla</h4>
+      <p>Los <b>hiperparámetros</b> son ajustes que se fijan antes de entrenar: la profundidad de un árbol, el número de árboles, la regularización α o el tamaño de las capas de una red.</p>
+      <p>La <b>búsqueda en malla</b> prueba todas las combinaciones de una lista y se queda con la de menor WAPE en la validación cruzada. Ejemplo: el Random Forest eligió profundidad 8 y mínimo 5 casos por hoja.</p></div>
+  </div>
+
+  <h3 id="c-modelos">E. Modelos y entrenamiento</h3>
+  <dl class="gloss">
+    <div id="c-linea"><dt>Línea base</dt><dd>Método simple contra el que se compara el modelo. Si el modelo no lo supera, no aporta. Aquí hay tres: la Reserva 1P tal cual, la persistencia y la persistencia ajustada por la pendiente de la 1P.</dd></div>
+    <div id="c-persistencia"><dt>Persistencia</dt><dd>Pronosticar que un campo producirá lo mismo que el año anterior. Es la línea base técnica más exigente porque la producción cambia poco de un año a otro.</dd></div>
+    <div id="c-cambio"><dt>Cambio logarítmico (objetivo del modelo)</dt><dd>log(bpd del año / bpd del año anterior). 0 = se mantiene; −0,10 ≈ cae 10 %; +0,10 ≈ sube 10 %. Se predice el cambio y no el nivel porque así el modelo parte de la persistencia y aprende cuándo se aparta de ella.</dd></div>
+    <div id="c-smearing"><dt>Factor de smearing (retransformación)</dt><dd>Al volver de logaritmos a barriles, el promedio queda sesgado hacia abajo. El factor de Duan, calculado con los residuos de entrenamiento, corrige ese sesgo.</dd></div>
+    <div id="c-ponderacion"><dt>Ponderación por tamaño</dt><dd>Cada campo pesa en el entrenamiento según la raíz de su producción previa: los grandes pesan más, sin anular a los pequeños.</dd></div>
+    <div id="c-arbol"><dt>Árbol de decisión</dt><dd>Divide los campos con preguntas sí/no sobre sus variables y asigna a cada hoja el cambio promedio de sus campos. Es el modelo más fácil de explicar.</dd></div>
+    <div id="c-rf"><dt>Random Forest</dt><dd>Promedia 500 árboles, cada uno entrenado con una muestra distinta de los datos. El promedio reduce el error de un árbol individual. Es el modelo final.</dd></div>
+    <div id="c-gb"><dt>Gradient Boosting</dt><dd>Construye árboles pequeños en secuencia; cada uno corrige el error que dejaron los anteriores.</dd></div>
+    <div id="c-lineal"><dt>Regresión lineal (MCO)</dt><dd>Suma el efecto de cada variable con un peso fijo (coeficiente), elegido para minimizar el error cuadrático.</dd></div>
+    <div id="c-ridge"><dt>Regresión Ridge</dt><dd>Regresión lineal que penaliza los coeficientes grandes (parámetro α) para evitar el sobreajuste. Con α = 30 dio casi lo mismo que la lineal simple.</dd></div>
+    <div id="c-red"><dt>Red neuronal (perceptrón multicapa)</dt><dd>Capas de «neuronas» que combinan las variables de forma no lineal. Aquí, dos capas de 64 y 32 neuronas. Necesita muchos datos para generalizar.</dd></div>
+    <div id="c-epoca"><dt>Época</dt><dd>Una pasada completa de la red neuronal por todos los datos de entrenamiento. La red se entrena durante muchas épocas.</dd></div>
+    <div id="c-sobreajuste"><dt>Sobreajuste</dt><dd>Cuando el modelo memoriza los datos de entrenamiento en lugar de aprender patrones generales: su error de entrenamiento sigue bajando mientras el de validación sube.</dd></div>
+    <div id="c-parada"><dt>Parada temprana</dt><dd>Detener el entrenamiento en la época en que el error de validación deja de mejorar, para evitar el sobreajuste.</dd></div>
+    <div id="c-importancia"><dt>Importancia por permutación</dt><dd>Cuánto empeora el modelo si se desordenan al azar los valores de una variable. Si empeora mucho, la variable es importante. La más importante fue la producción del año anterior.</dd></div>
+    <div id="c-kmedias"><dt>K-medias</dt><dd>Agrupa los campos en k grupos de modo que cada campo quede cerca del centro de su grupo. Es aprendizaje no supervisado: no usa ninguna respuesta conocida.</dd></div>
+    <div id="c-pca"><dt>Componentes principales</dt><dd>Combinaciones de las variables originales que resumen la mayor variación posible. Permiten dibujar en dos ejes campos descritos por seis variables.</dd></div>
+    <div id="c-crisp"><dt>CRISP-DM</dt><dd>Método estándar de proyectos de analítica en seis fases: comprensión del negocio, comprensión de los datos, preparación, modelado, evaluación y despliegue.</dd></div>
+  </dl>
+
+  <h3 id="c-negocio">F. Conceptos del negocio petrolero</h3>
+  <dl class="gloss">
+    <div><dt>Reservas 1P (probadas)</dt><dd>Volumen que se espera producir con alta certeza. El perfil anual de cada campo es el «dato óptimo proyectado» y el tope del pronóstico desde 2027.</dd></div>
+    <div><dt>Reservas 2P y 3P (probables y posibles)</dt><dd>Volúmenes adicionales con menor certeza. Aquí solo entran como variables; su migración a probadas no se modela.</dd></div>
+    <div><dt>Recursos contingentes</dt><dd>Volúmenes descubiertos que todavía no cumplen las condiciones para ser reservas. No se contemplan.</dd></div>
+    <div><dt>IRR 2024</dt><dd>Informe de Recursos y Reservas presentado en 2024, con corte al 31 de diciembre de 2023. Es la fuente del perfil 1P, 2P y 3P.</dd></div>
+    <div><dt>bpd</dt><dd>Barriles por día: producción anual dividida por los días del año (366 en 2024; 181 en el primer semestre de 2026).</dd></div>
+    <div><dt>WTI y Brent</dt><dd>Precios internacionales de referencia del petróleo, en dólares por barril. El Brent suele ser algunos dólares más caro; por eso las regalías a Brent son cerca de 10 % mayores.</dd></div>
+    <div><dt>Tasa de regalías (Ley 756 de 2002)</dt><dd>Porcentaje de la producción que corresponde al Estado: 8 % hasta 5.000 bpd y sube con la producción del campo hasta 25 % por encima de 600.000 bpd.</dd></div>
+    <div><dt>Regalías proyectadas y por producción</dt><dd>Las proyectadas se calculan sobre la Reserva 1P del año; las de producción, sobre la producción pronosticada. Ambas se expresan en barriles y en dólares (barriles × precio).</dd></div>
+    <div><dt>Pronosticado</dt><dd>Reservas 1P del año × precio promedio del año (WTI o Brent). Es el valor bruto de la producción 1P.</dd></div>
+    <div><dt>Tope 1P</dt><dd>Regla del ejercicio: desde 2027 la producción pronosticada de un campo nunca supera su Reserva 1P del año.</dd></div>
+  </dl>
+</section>
+
+
   <footer>Guía de sustentación del PFI · Uso exclusivamente académico (Especialización en Machine Learning, Universidad EAN, 2026).</footer>
 </div>
-</body></html>
+
+</html>
