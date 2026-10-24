@@ -296,7 +296,7 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding-top:14px;font-si
     <div class="concept" id="c-silueta"><h4>Coeficiente de silueta</h4>
       <p><b>Qué mide.</b> Qué tan bien separados están los grupos: si cada campo está más cerca de los de su segmento que de los del segmento vecino.</p>
       <p><b>Cómo se calcula.</b> Para cada campo, <span class="formula">(b − a) / máx(a, b)</span>, donde a es la distancia media a su propio grupo y b la distancia media al grupo más cercano. Se promedia sobre todos los campos.</p>
-      <p><b>Ejemplo.</b> 0,33 con k = 5, el mejor valor entre k = 3 y k = 6.</p>
+      <p><b>Ejemplo.</b> Se probaron k = 2 a k = 7. El mejor fue k = 5, con 0,33; k = 2 dio 0,30 y k = 7, 0,28.</p>
       <p><b>Por qué se usa.</b> Para elegir cuántos segmentos formar sin mirar ninguna etiqueta.</p>
       <p class="lee">De −1 a 1. Cerca de 0,3 indica grupos razonables con fronteras difusas, algo esperable en datos reales.</p></div>
     <div class="concept" id="c-varianza"><h4>Varianza explicada por un componente</h4>
