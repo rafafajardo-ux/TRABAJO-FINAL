@@ -14,7 +14,7 @@ Integrantes: Rafael Fajardo Moreno, Sonia Catalina Martinez Herrera y Laura Marc
 | `anexo_A_enfoque.md` | Anexo A: enfoque del aplicativo (producción y regalías solo con desarrollo de Reservas 1P, WTI y Brent). |
 | `anexo_B_datos_reales.md` | Anexo B: datos reales del IRR 2024, anonimización y medidas de acceso. |
 | `guia_sustentacion.html` / `.pdf` | Guía para preparar la sustentación: estructura en cuatro momentos, guion de 10 diapositivas y preguntas del jurado. |
-| `presentacion_sustentacion.pdf` | Diapositivas de la sustentación: 10 diapositivas en cuatro momentos más 14 anexos (A-G de respaldo; H-N con los conceptos clave y el significado de cada métrica). |
+| `presentacion_sustentacion.pdf` | Diapositivas de la sustentación: 10 diapositivas en cuatro momentos más 19 anexos (A-G de respaldo; H-N con los conceptos clave y el significado de cada métrica; O-S con VP, FP, FN y VN y el costo 3 a 1, la validación cruzada pliegue a pliegue, los hiperparámetros con ejemplos y MCO). |
 | `declaracion_IA.md` | Declaración de uso de inteligencia artificial (Claude Opus 5.5, Anthropic). |
 | `datos_crudos/` | Excel original y precios mensuales EIA. |
 
