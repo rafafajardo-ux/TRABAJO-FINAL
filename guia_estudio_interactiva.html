@@ -462,6 +462,13 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding-top:14px;font-si
     <tr><td><b>Con alerta</b></td><td class="n">97 · verdaderos positivos (VP)</td><td class="n">43 · falsas alarmas (FP)</td></tr>
     <tr><td><b>Sin alerta</b></td><td class="n">6 · incumplimientos no detectados (FN)</td><td class="n">111 · verdaderos negativos (VN)</td></tr>
   </table></div>
+  <div class="concept" id="c-siglas" style="margin:12px 0"><h4>Cómo leer VP, FP, FN y VN</h4>
+    <p>Cada sigla tiene dos partes. La segunda dice <b>qué predijo la alerta</b>: <b>positivo</b> = hubo alerta (se predijo que el campo incumple); <b>negativo</b> = no hubo alerta. La primera dice <b>si acertó</b>: <b>verdadero</b> = la predicción fue correcta; <b>falso</b> = se equivocó.</p>
+    <p><b>VP · verdaderos positivos (97).</b> Hubo alerta y el campo sí incumplió. Son los aciertos que importan.</p>
+    <p><b>FP · falsos positivos o falsas alarmas (43).</b> Hubo alerta, pero el campo cumplió. Error leve: se revisó un campo que no lo necesitaba.</p>
+    <p><b>FN · falsos negativos o incumplimientos no detectados (6).</b> No hubo alerta, pero el campo incumplió. Es el error grave: nadie lo revisó y sus regalías se presupuestaron completas.</p>
+    <p><b>VN · verdaderos negativos (111).</b> No hubo alerta y el campo cumplió.</p>
+    <p class="lee">Los cuatro suman los 257 campos de la prueba. Los que de verdad incumplieron son VP + FN = 103; las alertas emitidas son VP + FP = 140.</p></div>
   <div class="cgrid">
     <div class="concept" id="c-cumpl"><h4>Cumplimiento pronosticado</h4>
       <p><b>Qué mide.</b> Qué fracción de su Reserva 1P se espera que produzca un campo.</p>
@@ -470,12 +477,12 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding-top:14px;font-si
       <p><b>Por qué se usa.</b> Es el puntaje con el que se decide la alerta: si es menor que el <a href="#c-umbral">umbral</a>, se alerta.</p></div>
     <div class="concept" id="c-sens"><h4>Sensibilidad (o exhaustividad)</h4>
       <p><b>Qué mide.</b> De los campos que de verdad incumplieron, cuántos detectó la alerta.</p>
-      <p><b>Cómo se calcula.</b> <span class="formula">VP / (VP + FN)</span> = 97 / 103 = 0,94.</p>
+      <p><b>Cómo se calcula.</b> <span class="formula">VP / (VP + FN)</span>. VP son los incumplimientos que la alerta sí detectó (97) y FN los que se le escaparon (6); juntos, VP + FN, son todos los campos que de verdad incumplieron (103). Entonces 97 / 103 = 0,94: se detectaron 94 de cada 100 incumplimientos y se escaparon 6 campos.</p>
       <p><b>Por qué se usa.</b> Es la métrica que más importa aquí: un incumplimiento no detectado significa presupuestar regalías que no van a llegar.</p>
       <p class="lee">Más es mejor; 1 = no se escapa ningún incumplimiento.</p></div>
     <div class="concept" id="c-prec"><h4>Precisión</h4>
       <p><b>Qué mide.</b> De las alertas emitidas, cuántas fueron incumplimientos reales.</p>
-      <p><b>Cómo se calcula.</b> <span class="formula">VP / (VP + FP)</span> = 97 / 140 = 0,69.</p>
+      <p><b>Cómo se calcula.</b> <span class="formula">VP / (VP + FP)</span>. VP son las alertas que acertaron (97) y FP las falsas alarmas (43); juntas, VP + FP, son todas las alertas emitidas (140). Entonces 97 / 140 = 0,69.</p>
       <p><b>Por qué se usa.</b> Mide el costo de revisar: 31 de cada 100 alertas son falsas alarmas, que solo cuestan una conversación con el operador.</p>
       <p class="lee">Más es mejor. Suele bajar cuando la sensibilidad sube.</p></div>
     <div class="concept" id="c-auc"><h4>AUC · área bajo la curva ROC</h4>
@@ -486,9 +493,10 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding-top:14px;font-si
       <p class="lee">0,5 = azar; 1 = separación perfecta.</p></div>
     <div class="concept" id="c-umbral"><h4>Umbral y costo medio</h4>
       <p><b>Qué es.</b> El valor de cumplimiento por debajo del cual se emite alerta. Se eligió 1,00: alertar todo campo cuyo pronóstico no alcance su 1P.</p>
-      <p><b>Cómo se eligió.</b> Se probaron umbrales de 0,70 a 1,20 en la validación 2025 y se escogió el de menor <span class="formula">costo = (3 × FN + 1 × FP) / campos</span>.</p>
-      <p><b>Ejemplo.</b> Costo medio en 2026: (3 × 6 + 43) / 257 = 0,237; con el umbral de 0,90 sería 0,257.</p>
-      <p><b>Por qué se usa.</b> No detectar un incumplimiento cuesta tres veces más que una falsa alarma. El umbral traduce ese costo del negocio en una regla.</p></div>
+      <p><b>Cómo se eligió.</b> Se probaron umbrales de 0,70 a 1,20 en la validación 2025 y se escogió el de menor <span class="formula">costo medio = (3 × FN + 1 × FP) / campos</span>, donde FN es el número de incumplimientos no detectados (campos que incumplieron sin alerta) y FP el número de falsas alarmas (campos con alerta que sí cumplieron).</p>
+      <p><b>Por qué 3 y 1.</b> Son pesos que dicen cuánto cuesta cada error comparado con el otro. Una falsa alarma vale 1: solo obliga a revisar el campo con el operador antes de presupuestar. Un incumplimiento no detectado vale 3: se presupuestan regalías que no llegan, y los departamentos y municipios comprometen proyectos que después hay que recortar o aplazar. La proporción 3 a 1 es un supuesto del equipo, basado en el criterio de quien planea las regalías, no un valor estimado con los datos. Importa la proporción y no los números: con 6 y 2 se elegiría el mismo umbral. Si el FN pesara más, el umbral tendería a subir y habría más alertas; si pesara menos, a bajar.</p>
+      <p><b>Ejemplo.</b> Costo medio en 2026 con el umbral 1,00: (3 × 6 + 1 × 43) / 257 = 61 / 257 = 0,237. Con el umbral de 0,90 sería 0,257: habría menos falsas alarmas, pero más incumplimientos no detectados (detecta el 84 % en lugar del 94 %), y cada uno pesa el triple.</p>
+      <p><b>Por qué se usa.</b> El umbral traduce el costo del negocio en una regla: se acepta revisar algunos campos de más para no dejar pasar incumplimientos.</p></div>
   </div>
 
   <h3 id="c-segmentos">C. Métricas de los segmentos</h3>
